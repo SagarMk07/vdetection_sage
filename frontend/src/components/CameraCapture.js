@@ -197,17 +197,11 @@ export default function CameraCapture({
                 lastAlertRef.current = { name: best.name, ts: now };
                 if (alertPrefs.sound) beep();
                 sendBrowserNotice(best.name);
-                onAlert({ name: best.name, distance: best.distance, alert_type: "wanted_match" });
-            }
-        } else if (!matched) {
-            // Unknown person alert
-            if (now - lastUnknownAlertRef.current > 120000) { // 2 minutes cooldown
-                lastUnknownAlertRef.current = now;
                 const capturedImage = captureImageFromVideo(videoRef.current);
                 onAlert({
-                    name: "Unknown",
+                    name: best.name,
                     distance: best.distance,
-                    alert_type: "unknown_person",
+                    alert_type: "wanted_match",
                     image: capturedImage
                 });
             }
